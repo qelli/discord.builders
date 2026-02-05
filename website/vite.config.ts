@@ -7,6 +7,7 @@ import seoPlugin from './src/seoPlugin';
 
 
 export default defineConfig(({command, mode}) => ({
+    base: process.env.PAGES_BASE ?? '/',
     plugins: [react({
       jsxRuntime: 'classic',
     }), ejsTemplatePlugin({
