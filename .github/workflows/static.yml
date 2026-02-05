@@ -33,28 +33,22 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Enable Corepack
+        run: corepack enable
       - name: Setup Node.js environment
         uses: actions/setup-node@v6.2.0
         with:
           node-version-file: .nvmrc
-          #cache: true
+          cache: 'yarn'
       - name: Install dependencies
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install
+        run: yarn install --immutable
       - name: Build components-sdk
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build
+        run: yarn build
       - name: Build website
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build
-          dir: website
+        run: cd website && yarn install --immutable && yarn build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
           path: './website/dist'
       - name: Deploy to GitHub Pages
         id: deployment
